@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HE Student Self-Enrolment — Demo Walkthrough</title>
+<style>
+  :root {
+    --green: #0e874b;
+    --green-dark: #006736;
+    --green-bg: #e7f7ed;
+    --dark: #1d1d20;
+    --text-secondary: rgba(29, 29, 32, 0.61);
+    --divider: rgba(7, 13, 20, 0.12);
+    --paper: #ffffff;
+    --bg: #fafaf9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Poppins", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+  a { color: var(--green); }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #070d14 0%, #1d1d20 55%, var(--green-dark) 130%);
+    color: #fdfdfd;
+    padding: 72px 24px 64px;
+    text-align: center;
+  }
+  .hero .eyebrow {
+    display: inline-block;
+    background: rgba(38, 208, 124, 0.15);
+    color: #74d099;
+    border: 1px solid rgba(38, 208, 124, 0.4);
+    border-radius: 999px;
+    padding: 4px 16px;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 42px; font-weight: 600; line-height: 1.2; max-width: 860px; margin: 0 auto 16px; }
+  .hero p.sub { color: #d6d3d1; font-size: 18px; max-width: 720px; margin: 0 auto; }
+  .hero .squad { margin-top: 28px; font-size: 14px; color: #a8a29e; }
+  .hero .squad strong { color: #74d099; }
+
+  /* Layout */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 56px 0; }
+  section h2 {
+    font-size: 28px; font-weight: 600; margin-bottom: 8px;
+  }
+  section h2 .step-no {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--green); color: #fff; font-size: 17px; font-weight: 600;
+    margin-right: 12px; vertical-align: middle;
+  }
+  section p.lede { color: var(--text-secondary); font-size: 17px; max-width: 780px; margin-bottom: 8px; }
+  .divider-line { border: none; border-top: 1px solid var(--divider); margin: 0; }
+
+  /* Value cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-top: 32px; }
+  .card {
+    background: var(--paper); border: 1px solid var(--divider); border-radius: 12px;
+    padding: 24px;
+  }
+  .card .icon { font-size: 28px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .card p { font-size: 14px; color: var(--text-secondary); }
+
+  /* Screenshot figures */
+  figure.shot {
+    margin: 28px 0 8px;
+    background: var(--paper);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(7, 13, 20, 0.08);
+  }
+  figure.shot img { display: block; width: 100%; height: auto; }
+  figure.shot figcaption {
+    padding: 12px 20px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--divider);
+    background: #fdfdfd;
+  }
+  figure.shot figcaption strong { color: var(--dark); }
+  .shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 820px) { .shot-pair { grid-template-columns: 1fr; } }
+
+  /* Callouts */
+  .callout {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--green-bg); border-left: 4px solid var(--green);
+    border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 24px 0;
+    font-size: 15px;
+  }
+  .callout.amber { background: #fff8e1; border-left-color: #ef6c00; }
+  .callout .emoji { font-size: 20px; line-height: 1.3; }
+
+  /* Journey nav */
+  nav.toc {
+    background: var(--paper); border-bottom: 1px solid var(--divider);
+    position: sticky; top: 0; z-index: 10;
+  }
+  nav.toc .container { display: flex; gap: 4px; overflow-x: auto; padding: 0 24px; }
+  nav.toc a {
+    padding: 14px 16px; font-size: 14px; text-decoration: none; color: var(--text-secondary);
+    white-space: nowrap; border-bottom: 3px solid transparent;
+  }
+  nav.toc a:hover { color: var(--green-dark); border-bottom-color: var(--green); }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin-top: 24px; background: var(--paper); border: 1px solid var(--divider); border-radius: 12px; overflow: hidden; font-size: 15px; }
+  th { text-align: left; background: #f5f5f4; padding: 12px 16px; font-weight: 600; }
+  td { padding: 12px 16px; border-top: 1px solid var(--divider); vertical-align: top; }
+  td .chip {
+    display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+  }
+  .chip.on { background: var(--green-bg); color: var(--green-dark); }
+
+  /* Journey band alternation */
+  section.band { background: var(--paper); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+
+  /* Footer */
+  footer { padding: 40px 24px; text-align: center; color: var(--text-secondary); font-size: 13.5px; }
+
+  /* Step flow strip */
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 24px 0 4px; font-size: 14.5px; font-weight: 500; }
+  .flow .node { background: var(--paper); border: 1px solid var(--divider); border-radius: 999px; padding: 6px 16px; }
+  .flow .node.hot { background: var(--green); color: #fff; border-color: var(--green); }
+  .flow .arrow { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<!-- ======================= HERO ======================= -->
+<div class="hero">
+  <span class="eyebrow">Product demo · Higher Education</span>
+  <h1>Student Self-Enrolment<br />on the Ready Student Portal</h1>
+  <p class="sub">
+    Students choose and manage their own subjects — online, in minutes, within the guardrails
+    their institution sets. No forms, no phone queues, no manual data entry for staff.
+  </p>
+  <div class="squad">Built by the <strong>Dynamite Squad</strong> · ReadyTech — Ready Student (JR Plus)</div>
+</div>
+
+<!-- ======================= TOC ======================= -->
+<nav class="toc">
+  <div class="container">
+    <a href="#value">Introduction</a>
+    <a href="#setup">Setup</a>
+    <a href="#login">Login</a>
+    <a href="#journey">The student journey</a>
+    <a href="#wizard">Choosing subjects</a>
+    <a href="#guardrails">Validations</a>
+    <a href="#resume">Save &amp; resume</a>
+    <a href="#confirm">Review &amp; confirm</a>
+    <a href="#adjust">Adjusting subjects</a>
+    <a href="#mobile">Mobile</a>
+    <a href="#capability">Summary</a>
+  </div>
+</nav>
+
+<!-- ======================= VALUE ======================= -->
+<section id="value">
+  <div class="container">
+    <h2>Introduction</h2>
+    <p class="lede">
+      Traditionally, every HE subject enrolment is keyed in by admissions or student-services staff.
+      Self-enrolment moves that routine work to the student — while the system quietly enforces every
+      institutional rule in the background.
+    </p>
+    <div class="cards">
+      <div class="card"><div class="icon">🕐</div><h3>Less admin effort</h3>
+        <p>Routine subject enrolments no longer pass through staff hands — freeing teams for the exceptions that genuinely need them.</p></div>
+      <div class="card"><div class="icon">🎓</div><h3>Student autonomy</h3>
+        <p>Students pick their electives and shape their study plan themselves, from any device, whenever the enrolment window is open.</p></div>
+      <div class="card"><div class="icon">🛡️</div><h3>Rules always enforced</h3>
+        <p>Requisites, program structure and enrolment windows are checked live. Unlike admin-led enrolment, students can never override them.</p></div>
+      <div class="card"><div class="icon">⚡</div><h3>Real-time feedback</h3>
+        <p>Study load, requisite warnings and enrolment deadlines are visible while the student decides — not discovered after the fact.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-line" />
+
+<!-- ======================= SETUP ON RS CORE ======================= -->
+<section id="setup" class="band">
+  <div class="container">
+    <h2><span class="step-no">1</span>Setup — before students can enrol</h2>
+    <p class="lede">
+      Everything the student experiences is controlled by the institution on
+      <strong>Ready Student Core</strong>. Three switches matter: turning the capability on,
+      choosing the enrolment pattern, and opening the enrolment window.
+    </p>
+
+    <h3 style="margin-top: 32px; font-size: 19px;">a. Turn the capability on — feature flags</h3>
+    <p class="lede" style="font-size: 15.5px;">
+      Self-enrolment is enabled per provider from the Core <em>Features</em> page
+      (<code>Help → Features</code>). The switch is
+      <strong>"Ready Student Portals HE Student Self Enrolment"</strong> — it requires
+      <em>Ready Student Portals Higher Ed</em> (and the base portal flags) to already be on.
+      The Student Portal picks the change up automatically; nothing to deploy.
+    </p>
+    <figure class="shot">
+      <img src="screenshots/20_core_feature_flag_self_enrolment.png" alt="HE Student Self Enrolment feature flag on RS Core" loading="lazy" />
+      <figcaption><strong>The self-enrolment switch.</strong> "Ready Student Portals HE Student Self Enrolment" toggled on, on the Core Features page.</figcaption>
+    </figure>
+    <p class="lede" style="font-size: 15.5px;">
+      The rules engine behind the wizard is <strong>Curriculum Builder</strong> — it must also be
+      enabled, under <em>Development feature flags</em> on the same page. This one is managed by
+      superuser (level 0) accounts only, and is what powers requisite and program-structure
+      validation during enrolment.
+    </p>
+    <figure class="shot">
+      <img src="screenshots/21_core_feature_flag_curriculum_engine.png" alt="Curriculum Builder development feature flag on RS Core" loading="lazy" />
+      <figcaption><strong>The curriculum engine.</strong> The "Curriculum Builder" flag (Development feature flags, superuser-only) — the same engine that validates admin-led enrolment.</figcaption>
+    </figure>
+
+    <h3 style="margin-top: 40px; font-size: 19px;">b. Choose the enrolment pattern</h3>
+    <p class="lede" style="font-size: 15.5px;">
+      The <strong>Subject Enrolment Pattern</strong> (Administration → Preferences → Enrolment)
+      decides which wizard students get: <strong>Yearly</strong> — one wizard covering every study
+      period in the calendar year, or <strong>Period-based</strong> — one wizard per semester.
+      It's a system-wide default that can be overridden per course, so different programs can run
+      different intake models side by side.
+    </p>
+    <figure class="shot">
+      <img src="screenshots/22_core_enrolment_pattern.png" alt="Subject Enrolment Pattern setting in Enrolment Preferences" loading="lazy" />
+      <figcaption><strong>Enrolment Preferences.</strong> The "Subject Enrolment Pattern" dropdown — this environment runs <em>Period-based</em>, which is why the demo shows a per-semester flow.</figcaption>
+    </figure>
+
+    <h3 style="margin-top: 40px; font-size: 19px;">c. Open the enrolment window</h3>
+    <p class="lede" style="font-size: 15.5px;">
+      Each academic period carries its own <strong>Self-Enrolment Open and Close dates</strong>,
+      plus a <strong>Drop Subjects Deadline</strong> — all set on the Academic Period record.
+      These dates gate everything: before the open date or after the close date, the wizard simply
+      isn't reachable, and the "enrolment open" banner never appears.
+    </p>
+    <figure class="shot">
+      <img src="screenshots/23_core_academic_period_header.png" alt="Academic Period edit page on RS Core" loading="lazy" />
+      <figcaption><strong>Where it's configured — the Academic Period edit page.</strong> Each study period (here <em>Semester 3 (Jul – Sep) 2026</em>, code Sem3-2026) is a record on Ready Student Core with its own details, dates and census date. The self-enrolment fields live on this same page, just below the period details.</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="screenshots/24_core_self_enrolment_dates.png" alt="Self-enrolment dates on the Academic Period record" loading="lazy" />
+      <figcaption><strong>The window, per period.</strong> Self-Enrolment Open (15/07/2026) and Close (30/09/2026) dates on the same Academic Period edit page — with the drop deadline and withdrawal deadlines alongside.</figcaption>
+    </figure>
+
+    <div class="callout">
+      <span class="emoji">🗝️</span>
+      <div><strong>The setup story in one line:</strong> flip the flag, pick the pattern, set the dates —
+      Ready Student Core stays the single source of truth for who can enrol, in what, and when.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= LOGIN ======================= -->
+<section id="login">
+  <div class="container">
+    <h2><span class="step-no">2</span>Signing in — the Student Portal login</h2>
+    <p class="lede">
+      Students access the portal through a clean, branded login page. The institution's logo
+      appears on the left — customisable per provider — with a simple username and password form
+      on the right. A "Forgot password?" link is available for self-service recovery.
+    </p>
+
+    <figure class="shot">
+      <img src="screenshots/01_login.png" alt="Student Portal login screen" loading="lazy" />
+      <figcaption><strong>The Student Portal login.</strong> A split-screen layout — the institution's branding on the left, the login form on the right. Username and password with a "Forgot password?" recovery link. The login page adapts per tenant, showing each provider's own logo.</figcaption>
+    </figure>
+
+    <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+      <div class="card"><div class="icon">🏢</div><h3>Multi-tenant</h3>
+        <p>Each institution gets their own branded login page with their logo — powered by the same platform, isolated per provider.</p></div>
+      <div class="card"><div class="icon">🔑</div><h3>Self-service recovery</h3>
+        <p>"Forgot password?" triggers a password reset flow — no need to call the institution's help desk.</p></div>
+      <div class="card"><div class="icon">🔐</div><h3>MFA supported</h3>
+        <p>Multi-factor authentication can be enabled for an extra layer of security, with trusted-device support so students aren't prompted on every login.</p></div>
+    </div>
+
+    <div class="callout">
+      <span class="emoji">👤</span>
+      <div><strong>Student credentials are managed in Ready Student Core</strong> — when staff create or import a student
+      record, a portal login is provisioned automatically. The student receives their credentials
+      (typically via email) and can sign in immediately.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-line" />
+
+<!-- ======================= JOURNEY 1: DISCOVER ======================= -->
+<section id="journey">
+  <div class="container">
+    <h2><span class="step-no">3</span>The journey begins on the portal</h2>
+    <p class="lede">
+      The student signs in to the Ready Student Portal. When an enrolment window is open,
+      the portal tells them — front and centre on their course page, with the closing date —
+      so nobody misses their window.
+    </p>
+
+    <div class="flow">
+      <span class="node">Login</span><span class="arrow">→</span>
+      <span class="node">Dashboard</span><span class="arrow">→</span>
+      <span class="node hot">"Enrolment is open" banner</span><span class="arrow">→</span>
+      <span class="node">Start Enrolment</span>
+    </div>
+
+    <figure class="shot">
+      <img src="screenshots/02_dashboard.png" alt="Student dashboard with Enrolment Open badge" loading="lazy" />
+      <figcaption><strong>The student can't miss it.</strong> The moment the window opens, the dashboard flags it twice — an <em>Enrolment Open</em> badge on their study card, and an "Enrol for Semester 2 — closes 31 Jul 2026" task in the Action Centre with a one-click <em>Start</em>.</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="screenshots/03_enrolments_open_banner.png" alt="Enrolments page with open enrolment banner" loading="lazy" />
+      <figcaption><strong>Course page with the enrolment invitation.</strong> "Online enrolment for Semester 2 is open. Lock in your subjects before 31/07/2026" — one click on <em>Start Enrolment</em> launches the wizard. The banner only appears while the institution's enrolment window is open.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= JOURNEY 2: WIZARD ======================= -->
+<section id="wizard" class="band">
+  <div class="container">
+    <h2><span class="step-no">4</span>A guided, step-by-step wizard</h2>
+    <p class="lede">
+      The wizard lays the whole process out before anything starts: one step per study period,
+      then a final review. The student always knows where they are and what's left.
+    </p>
+
+    <figure class="shot">
+      <img src="screenshots/04_enrolment_steps.png" alt="Enrolment steps overview" loading="lazy" />
+      <figcaption><strong>Enrolment steps.</strong> Every period in scope — here Semesters 2, 3 and 4 of 2026 — is a step, finishing with a review. Optional periods can be removed; the student's primary period cannot.</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="screenshots/05_select_subjects_empty.png" alt="Select subjects — empty state" loading="lazy" />
+      <figcaption><strong>Selecting subjects for a period.</strong> The left rail keeps the program, period dates, key notices (like the census date) and progress visible throughout. The student starts with a clean slate and builds their selection.</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="screenshots/06_add_subjects_drawer.png" alt="Add subjects drawer" loading="lazy" />
+      <figcaption><strong>The subject catalogue.</strong> Every offering available <em>to this student, in this period, in their program</em> — searchable by name or code and filterable by Core / Elective. Credit points, location and attendance mode are right on the card.</figcaption>
+    </figure>
+
+    <div class="shot-pair">
+      <figure class="shot">
+        <img src="screenshots/07_drawer_subjects_added.png" alt="Subjects added in drawer" loading="lazy" />
+        <figcaption><strong>Adding is one tap.</strong> The running "Selected subjects" counter keeps score at the bottom of the drawer.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="screenshots/08_selected_subjects_study_load.png" alt="Selected subjects on the period page" loading="lazy" />
+        <figcaption><strong>The period takes shape.</strong> Selected subjects appear as cards with their credit points — removable up until the student confirms.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GUARDRAILS ======================= -->
+<section id="guardrails">
+  <div class="container">
+    <h2><span class="step-no">5</span>Requisite Rules/Validations</h2>
+    <p class="lede">
+      This is the heart of the feature. The student is free to choose — but the platform enforces
+      the institution's rules at every step, in real time. And unlike admin-led enrolment,
+      <strong>there is no override</strong>.
+    </p>
+
+    <figure class="shot">
+      <img src="screenshots/06b_requisite_alert.png" alt="Co-requisite alert in the subject catalogue" loading="lazy" />
+      <figcaption><strong>Requisites, enforced live.</strong> Subject A requires Subject C as a co-requisite — so its Add button is disabled and the drawer explains exactly why, with a one-click "+ Add both" shortcut to resolve it. No invalid combination can ever be submitted.</figcaption>
+    </figure>
+
+    <div class="cards">
+      <div class="card"><div class="icon">🔗</div><h3>Requisite rules</h3>
+        <p>Pre- and co-requisites are evaluated as the student browses, and re-checked at confirmation. Failing combinations are blocked with a clear explanation.</p></div>
+      <div class="card"><div class="icon">🏗️</div><h3>Program structure</h3>
+        <p>Only subjects that belong to the student's program are offered. Anything outside their curriculum simply never appears.</p></div>
+      <div class="card"><div class="icon">⚖️</div><h3>Study load visibility</h3>
+        <p>Credit points are totalled against the standard load for the study period as the student selects, so they can see exactly how full their semester is.</p></div>
+      <div class="card"><div class="icon">📅</div><h3>Enrolment windows</h3>
+        <p>Open and close dates set per academic period control access completely — outside the window, the wizard is unreachable.</p></div>
+    </div>
+
+    <div class="callout amber">
+      <span class="emoji">💡</span>
+      <div><strong>Worth calling out to clients:</strong> validation is done by the same curriculum engine
+      that powers admin-led enrolment — one source of truth for rules, whether staff or students drive the process.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SAVE & RESUME ======================= -->
+<section id="resume" class="band">
+  <div class="container">
+    <h2><span class="step-no">6</span>Life happens — save &amp; pick up later</h2>
+    <p class="lede">
+      Choosing subjects is a big decision. Students can save their progress at any point and come back —
+      their selection is waiting exactly where they left it, on any device.
+    </p>
+
+    <div class="shot-pair">
+      <figure class="shot">
+        <img src="screenshots/09_save_and_exit_return.png" alt="Returned to enrolments after save and exit" loading="lazy" />
+        <figcaption><strong>"Save &amp; exit"</strong> returns the student safely to their course page — nothing submitted, nothing lost.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="screenshots/10_resume_state_restored.png" alt="Wizard re-entered with selection restored" loading="lazy" />
+        <figcaption><strong>Back where they left off.</strong> Re-entering the wizard restores both previously selected subjects automatically.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REVIEW & CONFIRM ======================= -->
+<section id="confirm">
+  <div class="container">
+    <h2><span class="step-no">7</span>Review, confirm — enrolled</h2>
+    <p class="lede">
+      Before anything is committed, the student sees a full summary of every period and every subject.
+      One tap on <em>Confirm</em> runs the final validation pass and writes the enrolment into the
+      student management system — instantly.
+    </p>
+
+    <figure class="shot">
+      <img src="screenshots/12_review.png" alt="Review your subjects page" loading="lazy" />
+      <figcaption><strong>The review step.</strong> A read-only summary — requisites are re-verified here one final time before the Confirm button activates.</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="screenshots/13_success.png" alt="Subjects successfully enrolled success page" loading="lazy" />
+      <figcaption><strong>🎉 Done.</strong> Subjects are enrolled in the SMS in real time — with clear next steps for the student. Staff see the enrolment immediately in Ready Student Core; nothing to re-key.</figcaption>
+    </figure>
+
+    <div class="callout">
+      <span class="emoji">🔒</span>
+      <div><strong>Safe by design:</strong> the confirmation is protected against double-submission, and if any rule fails
+      at the last moment (e.g. a requisite), the whole submission rolls back — a student can never end up half-enrolled.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ADJUST ======================= -->
+<section id="adjust" class="band">
+  <div class="container">
+    <h2><span class="step-no">8</span>Changed your mind? Adjust within the window</h2>
+    <p class="lede">
+      Enrolment isn't a one-shot decision. Until the institution's deadline, students can return
+      and adjust — dropping subjects or adding new ones — through the same familiar experience.
+    </p>
+
+    <div class="flow">
+      <span class="node">Adjust your subjects</span><span class="arrow">→</span>
+      <span class="node">Drop / add</span><span class="arrow">→</span>
+      <span class="node">Review</span><span class="arrow">→</span>
+      <span class="node hot">Subjects adjusted</span>
+    </div>
+
+    <figure class="shot">
+      <img src="screenshots/15_adjust_entry.png" alt="Adjust your subjects entry" loading="lazy" />
+      <figcaption><strong>The adjust flow.</strong> The student's current subjects appear with a <em>Planned</em> status badge — each one removable while the adjustment window is open.</figcaption>
+    </figure>
+
+    <div class="shot-pair">
+      <figure class="shot">
+        <img src="screenshots/16_adjust_subject_dropped.png" alt="Subject dropped in adjust flow" loading="lazy" />
+        <figcaption><strong>Dropping Subject D.</strong> One tap and the selection updates — the drop is only committed at confirmation.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="screenshots/17_adjust_review.png" alt="Adjust review page" loading="lazy" />
+        <figcaption><strong>A short two-step flow.</strong> Adjust → review → confirm. Quick for the student, fully validated for the institution.</figcaption>
+      </figure>
+    </div>
+
+    <figure class="shot">
+      <img src="screenshots/18_adjust_success.png" alt="Subjects adjusted success page" loading="lazy" />
+      <figcaption><strong>Adjusted.</strong> The withdrawal is processed with the correct outcome behind the scenes, and the student's updated subject list is confirmed on screen.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= MOBILE ======================= -->
+<section id="mobile">
+  <div class="container">
+    <h2><span class="step-no">9</span>Built for every screen — mobile-first</h2>
+    <p class="lede">
+      The entire self-enrolment experience is fully adaptive. Students on phones get a
+      purpose-built mobile layout — not a squeezed desktop view — with the same guardrails,
+      the same wizard, and the same instant confirmation.
+    </p>
+
+    <div class="callout">
+      <span class="emoji">📱</span>
+      <div><strong>Server-side adaptive design:</strong> the portal detects the device on the server and
+      delivers a mobile-optimised layout automatically — no pinch-to-zoom, no horizontal scrolling.
+      Every screen shown below is the real mobile experience, not a responsive breakpoint.</div>
+    </div>
+
+    <h3 style="margin-top: 32px; font-size: 19px;">Discovery &amp; entry</h3>
+    <div class="shot-pair">
+      <figure class="shot">
+        <img src="screenshots/30_mobile_dashboard.png" alt="Mobile student dashboard with Enrolment Open badge" loading="lazy" />
+        <figcaption><strong>Mobile dashboard.</strong> The <em>Enrolment Open</em> badge is visible on the study card and the Action Centre is one tap away. The floating bottom navigation keeps Home, Schedule and Study within reach.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="screenshots/31_mobile_enrolments_banner.png" alt="Mobile enrolments page with open enrolment banner" loading="lazy" />
+        <figcaption><strong>Study page with enrolment invitation.</strong> "Enrol for Semester 2 — Closes 31/07/2026" is a tappable card that launches the wizard. Subject status badges (<em>Awaiting Release</em>) are right on the card.</figcaption>
+      </figure>
+    </div>
+
+    <h3 style="margin-top: 32px; font-size: 19px;">The wizard on mobile</h3>
+    <figure class="shot" style="max-width: 420px;">
+      <img src="screenshots/32_mobile_steps.png" alt="Mobile enrolment steps overview" loading="lazy" />
+      <figcaption><strong>Enrolment steps.</strong> The same step-by-step stepper, with progress ring, "Save &amp; exit" and "Let's begin" — all thumb-reachable at the bottom of the screen.</figcaption>
+    </figure>
+
+    <h3 style="margin-top: 32px; font-size: 19px;">Selecting subjects</h3>
+    <div class="shot-pair">
+      <figure class="shot">
+        <img src="screenshots/33_mobile_select_subjects.png" alt="Mobile select subjects page with study load and subject cards" loading="lazy" />
+        <figcaption><strong>Select subjects on mobile.</strong> Program info, period dates, the census-date notice and selected subjects are stacked vertically. Credit points, location and attendance mode are all visible without scrolling sideways.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="screenshots/34_mobile_add_drawer.png" alt="Mobile add subjects bottom drawer" loading="lazy" />
+        <figcaption><strong>Add subjects — bottom drawer.</strong> The subject catalogue opens as a swipeable bottom sheet. Search, Core/Elective filters and the "Added" toggle all work identically to desktop. The "Selected subjects" counter and Done button anchor at the bottom.</figcaption>
+      </figure>
+    </div>
+
+    <div class="callout" style="margin-top: 24px;">
+      <span class="emoji">✅</span>
+      <div><strong>Same rules, same flow, different form factor.</strong> Requisite validation, study-load
+      tracking, save &amp; resume, review and confirm — every guardrail that exists on desktop works
+      identically on mobile. Students can start on their laptop and finish on their phone.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-line" />
+
+<!-- ======================= CAPABILITY SUMMARY ======================= -->
+<section id="capability">
+  <div class="container">
+    <h2>Summary</h2>
+    <p class="lede">What the Dynamite Squad delivered, in one view.</p>
+
+    <table>
+      <thead><tr><th style="width:32%">Capability</th><th>What it means for the institution</th></tr></thead>
+      <tbody>
+        <tr><td><span class="chip on">Enrolment modes</span></td>
+          <td>Three flows from one wizard: <strong>whole-year</strong> (all periods in a calendar year), <strong>single period</strong> (one semester), and <strong>adjust</strong> (change an existing enrolment). Institutions choose the pattern that matches their intake model.</td></tr>
+        <tr><td><span class="chip on">Guided subject selection</span></td>
+          <td>Search, Core/Elective filtering, credit points, location and attendance mode per offering — scoped automatically to the student's program and period.</td></tr>
+        <tr><td><span class="chip on">Real-time guardrails</span></td>
+          <td>Requisite evaluation, program-structure validation and study-load visibility while the student selects — with no student override possible.</td></tr>
+        <tr><td><span class="chip on">Enrolment windows</span></td>
+          <td>Open, close and drop deadlines configured per academic period in Ready Student Core gate all access, down to the day.</td></tr>
+        <tr><td><span class="chip on">Save &amp; resume</span></td>
+          <td>Progress persists across sessions and devices until the student is ready to commit.</td></tr>
+        <tr><td><span class="chip on">Add &amp; drop</span></td>
+          <td>Students adjust their own enrolments within the allowed window; withdrawals are recorded with the correct outcome automatically.</td></tr>
+        <tr><td><span class="chip on">Instant SMS integration</span></td>
+          <td>Confirmed selections write straight into Ready Student Core — staff see them immediately, with zero re-keying.</td></tr>
+        <tr><td><span class="chip on">Mobile-ready</span></td>
+          <td>A fully adaptive mobile experience — server-side device detection delivers a purpose-built layout, not a responsive compromise. Students can enrol from any device.</td></tr>
+        <tr><td><span class="chip on">Controlled rollout</span></td>
+          <td>The entire capability is switched per provider — institutions opt in when they're ready.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top: 32px;">
+      <span class="emoji">🚀</span>
+      <div><strong>The takeaway:</strong> students get a modern, consumer-grade enrolment experience;
+      institutions keep complete control of the rules; and staff get their time back.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  HE Student Self-Enrolment · Built by the Dynamite Squad · Screenshots captured from a ReadyTech test environment (test data only) · Internal &amp; client demo material
+</footer>
+
+</body>
+</html>
