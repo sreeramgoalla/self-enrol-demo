@@ -153,6 +153,30 @@
   #my-role .facts div { padding: 16px 20px; border-left: 1px solid var(--divider); margin-left: -1px; }
   #my-role .facts b { display: block; font-size: 24px; font-weight: 600; color: var(--green-ink, var(--green-dark)); font-variant-numeric: tabular-nums; line-height: 1.2; }
   #my-role .facts span { font-size: 13px; color: var(--text-secondary); }
+
+  /* ---- PDF download + print ---- */
+  .pdf-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding: 9px 20px; border-radius: 999px;
+    border: 1px solid rgba(116, 208, 153, 0.6); color: #ffffff; background: rgba(38, 208, 124, 0.12);
+    font-size: 14px; font-weight: 500; text-decoration: none; }
+  .pdf-btn:hover, .pdf-btn:focus-visible { background: rgba(38, 208, 124, 0.28); outline: none; }
+  .pdf-btn svg { width: 16px; height: 16px; }
+  @page { size: A4; margin: 12mm 10mm; }
+  @media print {
+    html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html { zoom: 0.68; }
+    #my-role { break-before: page; }
+    .lede, .lens li { break-inside: avoid; }
+    figure.shot img { max-height: 520px; width: auto; max-width: 100%; margin: 0 auto; }
+    .shot-pair { grid-template-columns: 1fr 1fr !important; }
+    nav.toc, .pdf-btn { display: none !important; }
+    .hero { padding: 40px 24px 36px; }
+    section { padding: 28px 0; }
+    .card, .lens, .panel, figure, tr, .feature, .callout, ol.steps li, .facts, .segs, .fork, .flow, .cards > * { break-inside: avoid; }
+    h2, h3, .lede { break-after: avoid; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 0 !important; }
+    a { text-decoration: none; }
+  }
 </style>
 </head>
 <body>
@@ -166,6 +190,7 @@
     their institution sets. No forms, no phone queues, no manual data entry for staff.
   </p>
   <div class="squad">Built by the <strong>Dynamite Squad</strong> · ReadyTech — Ready Student (JR Plus)<br />Walkthrough by <strong>Sreeram Goalla</strong> · Product, Business Analysis &amp; QA</div>
+  <a class="pdf-btn" href="Sreeram-Goalla-Self-Enrolment-Demo.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download PDF</a>
 </div>
 
 <!-- ======================= TOC ======================= -->
