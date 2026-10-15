@@ -1,2 +1,2 @@
 # self-enrol-demo
-HE Student Self-Enrolment — Demo Walkthrough for the Ready Student Portal
+HE Student Self-Enrolment — Demo Walkthrough for the Student Portal

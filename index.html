@@ -184,12 +184,12 @@
 <!-- ======================= HERO ======================= -->
 <div class="hero">
   <span class="eyebrow">Product demo · Higher Education</span>
-  <h1>Student Self-Enrolment<br />on the Ready Student Portal</h1>
+  <h1>Student Self-Enrolment<br />on the Student Portal</h1>
   <p class="sub">
     Students choose and manage their own subjects — online, in minutes, within the guardrails
     their institution sets. No forms, no phone queues, no manual data entry for staff.
   </p>
-  <div class="squad">Built by the <strong>Dynamite Squad</strong> · ReadyTech — Ready Student (JR Plus)<br />Walkthrough by <strong>Sreeram Goalla</strong> · Product, Business Analysis &amp; QA</div>
+  <div class="squad">Built by the <strong>Dynamite Squad</strong> · ReadyTech<br />Walkthrough by <strong>Sreeram Goalla</strong> · Product, Business Analysis &amp; QA</div>
   <a class="pdf-btn" href="Sreeram-Goalla-Self-Enrolment-Demo.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download PDF</a>
 </div>
 
@@ -285,7 +285,7 @@
     <h2><span class="step-no">1</span>Setup — before students can enrol</h2>
     <p class="lede">
       Everything the student experiences is controlled by the institution on
-      <strong>Ready Student Core</strong>. Three switches matter: turning the capability on,
+      <strong>the student management system (SMS)</strong>. Three switches matter: turning the capability on,
       choosing the enrolment pattern, and opening the enrolment window.
     </p>
 
@@ -293,13 +293,13 @@
     <p class="lede" style="font-size: 15.5px;">
       Self-enrolment is enabled per provider from the Core <em>Features</em> page
       (<code>Help → Features</code>). The switch is
-      <strong>"Ready Student Portals HE Student Self Enrolment"</strong> — it requires
-      <em>Ready Student Portals Higher Ed</em> (and the base portal flags) to already be on.
+      <strong>"HE Student Self Enrolment"</strong> — it requires
+      <em>Student Portal Higher Ed</em> (and the base portal flags) to already be on.
       The Student Portal picks the change up automatically; nothing to deploy.
     </p>
     <figure class="shot">
-      <img src="screenshots/20_core_feature_flag_self_enrolment.png" alt="HE Student Self Enrolment feature flag on RS Core" loading="lazy" />
-      <figcaption><strong>The self-enrolment switch.</strong> "Ready Student Portals HE Student Self Enrolment" toggled on, on the Core Features page.</figcaption>
+      <img src="screenshots/20_core_feature_flag_self_enrolment.png" alt="HE Student Self Enrolment feature flag in the SMS" loading="lazy" />
+      <figcaption><strong>The self-enrolment switch.</strong> "HE Student Self Enrolment" toggled on, on the Core Features page.</figcaption>
     </figure>
     <p class="lede" style="font-size: 15.5px;">
       The rules engine behind the wizard is <strong>Curriculum Builder</strong> — it must also be
@@ -308,7 +308,7 @@
       validation during enrolment.
     </p>
     <figure class="shot">
-      <img src="screenshots/21_core_feature_flag_curriculum_engine.png" alt="Curriculum Builder development feature flag on RS Core" loading="lazy" />
+      <img src="screenshots/21_core_feature_flag_curriculum_engine.png" alt="Curriculum Builder development feature flag in the SMS" loading="lazy" />
       <figcaption><strong>The curriculum engine.</strong> The "Curriculum Builder" flag (Development feature flags, superuser-only) — the same engine that validates admin-led enrolment.</figcaption>
     </figure>
 
@@ -333,8 +333,8 @@
       isn't reachable, and the "enrolment open" banner never appears.
     </p>
     <figure class="shot">
-      <img src="screenshots/23_core_academic_period_header.png" alt="Academic Period edit page on RS Core" loading="lazy" />
-      <figcaption><strong>Where it's configured — the Academic Period edit page.</strong> Each study period (here <em>Semester 3 (Jul – Sep) 2026</em>, code Sem3-2026) is a record on Ready Student Core with its own details, dates and census date. The self-enrolment fields live on this same page, just below the period details.</figcaption>
+      <img src="screenshots/23_core_academic_period_header.png" alt="Academic Period edit page in the SMS" loading="lazy" />
+      <figcaption><strong>Where it's configured — the Academic Period edit page.</strong> Each study period (here <em>Semester 3 (Jul – Sep) 2026</em>, code Sem3-2026) is a record in the SMS with its own details, dates and census date. The self-enrolment fields live on this same page, just below the period details.</figcaption>
     </figure>
     <figure class="shot">
       <img src="screenshots/24_core_self_enrolment_dates.png" alt="Self-enrolment dates on the Academic Period record" loading="lazy" />
@@ -344,7 +344,7 @@
     <div class="callout">
       <span class="emoji">🗝️</span>
       <div><strong>The setup story in one line:</strong> flip the flag, pick the pattern, set the dates —
-      Ready Student Core stays the single source of truth for who can enrol, in what, and when.</div>
+      The SMS stays the single source of truth for who can enrol, in what, and when.</div>
     </div>
   </div>
 </section>
@@ -375,7 +375,7 @@
 
     <div class="callout">
       <span class="emoji">👤</span>
-      <div><strong>Student credentials are managed in Ready Student Core</strong> — when staff create or import a student
+      <div><strong>Student credentials are managed in the SMS</strong> — when staff create or import a student
       record, a portal login is provisioned automatically. The student receives their credentials
       (typically via email) and can sign in immediately.</div>
     </div>
@@ -389,7 +389,7 @@
   <div class="container">
     <h2><span class="step-no">3</span>The journey begins on the portal</h2>
     <p class="lede">
-      The student signs in to the Ready Student Portal. When an enrolment window is open,
+      The student signs in to the Student Portal. When an enrolment window is open,
       the portal tells them — front and centre on their course page, with the closing date —
       so nobody misses their window.
     </p>
@@ -523,7 +523,7 @@
 
     <figure class="shot">
       <img src="screenshots/13_success.png" alt="Subjects successfully enrolled success page" loading="lazy" />
-      <figcaption><strong>🎉 Done.</strong> Subjects are enrolled in the SMS in real time — with clear next steps for the student. Staff see the enrolment immediately in Ready Student Core; nothing to re-key.</figcaption>
+      <figcaption><strong>🎉 Done.</strong> Subjects are enrolled in the SMS in real time — with clear next steps for the student. Staff see the enrolment immediately in the SMS; nothing to re-key.</figcaption>
     </figure>
 
     <div class="callout">
@@ -647,13 +647,13 @@
         <tr><td><span class="chip on">Real-time guardrails</span></td>
           <td>Requisite evaluation, program-structure validation and study-load visibility while the student selects — with no student override possible.</td></tr>
         <tr><td><span class="chip on">Enrolment windows</span></td>
-          <td>Open, close and drop deadlines configured per academic period in Ready Student Core gate all access, down to the day.</td></tr>
+          <td>Open, close and drop deadlines configured per academic period in the SMS gate all access, down to the day.</td></tr>
         <tr><td><span class="chip on">Save &amp; resume</span></td>
           <td>Progress persists across sessions and devices until the student is ready to commit.</td></tr>
         <tr><td><span class="chip on">Add &amp; drop</span></td>
           <td>Students adjust their own enrolments within the allowed window; withdrawals are recorded with the correct outcome automatically.</td></tr>
         <tr><td><span class="chip on">Instant SMS integration</span></td>
-          <td>Confirmed selections write straight into Ready Student Core — staff see them immediately, with zero re-keying.</td></tr>
+          <td>Confirmed selections write straight into the SMS — staff see them immediately, with zero re-keying.</td></tr>
         <tr><td><span class="chip on">Mobile-ready</span></td>
           <td>A fully adaptive mobile experience — server-side device detection delivers a purpose-built layout, not a responsive compromise. Students can enrol from any device.</td></tr>
         <tr><td><span class="chip on">Controlled rollout</span></td>
